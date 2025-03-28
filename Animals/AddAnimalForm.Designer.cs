@@ -54,7 +54,6 @@
             textBoxSpecies.Size = new Size(200, 23);
             textBoxSpecies.TabIndex = 0;
             textBoxSpecies.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            //   textBoxSpecies.TextChanged += textBoxSpecies_TextChanged;
             // 
             // textBoxClass
             // 
@@ -102,7 +101,7 @@
             Controls.Add(textBoxWeight);
             Controls.Add(addButton);
             Name = "AddAnimalForm";
-            Text = "Животные";
+            Text = "Внесение данных";
             ResumeLayout(false);
             PerformLayout();
         }
