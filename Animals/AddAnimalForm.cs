@@ -3,16 +3,30 @@ using System.Collections.Generic;
 using System.Drawing.Text;
 using System.Windows.Forms;
 using Animals.Models;
-
 namespace Animals
 {
     public partial class AddAnimalForm : Form
     {
         private AnimalCollection animalCollection;
+        private BaseAnimal animalToEdit;
+        private bool isEditMode = false;
+
         public AddAnimalForm(AnimalCollection animalCollection)
         {
             InitializeComponent();
             this.animalCollection = animalCollection;
+        }
+
+        public AddAnimalForm(AnimalCollection animalCollection, BaseAnimal animalToEdit) : this(animalCollection)
+        {
+            this.animalToEdit = animalToEdit;
+            isEditMode = true;
+
+            textBoxSpecies.Text = animalToEdit.Species;
+            textBoxClass.Text = animalToEdit.Class;
+            textBoxWeight.Text = animalToEdit.AverageWeigth.ToString();
+            textBoxHabitats.Text = string.Join(",", animalToEdit.Habitats);
+            addButton.Text = "Сохранить";
         }
 
         private void addButton_Click(object sender, EventArgs e)
@@ -24,28 +38,29 @@ namespace Animals
                 double weight = double.Parse(textBoxWeight.Text);
                 var habitats = new List<string>(textBoxHabitats.Text.Split(','));
 
-                var animal = new AnimalModel(species, animalClass, weight, habitats);
-                animalCollection.Add(animal);
+                if (isEditMode)
+                {
+                    animalToEdit.Species = species;
+                    animalToEdit.Class = animalClass;
+                    animalToEdit.AverageWeigth = weight;
+                    animalToEdit.Habitats = habitats;
+                }
+                else
+                {
+                    var animal = new AnimalModel(species, animalClass, weight, habitats);
+                    animalCollection.Add(animal);
+                }
 
-                MessageBox.Show("Животное добавлено, ебаное ты животное");
-                ClearFields();
                 this.Close();
             }
-            catch(InvalidWeigthException ex)
+            catch (InvalidWeigthException ex)
             {
-                MessageBox.Show("Ебаный ты дебил! Вот почему: " + ex.Message);
+                MessageBox.Show("Ошибка: " + ex.Message);
             }
             catch (FormatException ex)
             {
-                MessageBox.Show("Ебаный ты дебил! Вот почему: " + ex.Message);
+                MessageBox.Show("Неверный формат данных: " + ex.Message);
             }
-        }
-        private void ClearFields()
-        {
-            textBoxSpecies.Text = "";
-            textBoxClass.Text = "";
-            textBoxWeight.Text = "";
-            textBoxHabitats.Text = "";
         }
     }
 }

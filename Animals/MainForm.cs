@@ -44,5 +44,46 @@ namespace Animals
                 listBoxAnimals.Items.Add(animal.GetInfo());
             }
         }
+
+        private void deleteAnimalButton_Click(object sender, EventArgs e)
+        {
+            int index = listBoxAnimals.SelectedIndex;
+            if (index >= 0)
+            {
+                var confirm = MessageBox.Show("Удалить выбранное животное?", "Подтверждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (confirm == DialogResult.Yes)
+                {
+                    var animalToRemove = animalCollection.GetAt(index);
+                    animalCollection.Remove(animalToRemove);
+                    UpdateAnimalList();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Сначала выберите животное из списка.");
+            }
+        }
+        private void editAnimalButton_Click(object sender, EventArgs e)
+        {
+            int index = listBoxAnimals.SelectedIndex;
+            if (index >= 0)
+            {
+                var selectedAnimal = animalCollection.GetAt(index);
+                var editForm = new AddAnimalForm(animalCollection, selectedAnimal);
+                editForm.FormClosed += (s, args) => UpdateAnimalList();
+                editForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Сначала выберите животное из списка.");
+            }
+        }
+
+        private void ShowAboutDialog(object sendet, EventArgs e)
+        {
+            MessageBox.Show("Программа для внесения информации о животных\nРазработано Дозорцевой Еленой, ДТ-360а", "О программе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        
     }
 }

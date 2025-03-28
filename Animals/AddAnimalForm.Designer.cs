@@ -8,6 +8,8 @@
         private System.Windows.Forms.TextBox textBoxWeight;
         private System.Windows.Forms.TextBox textBoxHabitats;
         private System.Windows.Forms.Button addButton;
+
+      
         /// <summary>
         ///  Required designer variable.
         /// </summary>
@@ -47,7 +49,7 @@
             textBoxSpecies.Name = "textBoxSpecies";
             textBoxSpecies.PlaceholderText = "Вид";
             textBoxSpecies.Size = new Size(200, 23);
-            textBoxSpecies.TabIndex = 2;
+            textBoxSpecies.TabIndex = 0;
             // 
             // textBoxClass
             // 
@@ -55,7 +57,7 @@
             textBoxClass.Name = "textBoxClass";
             textBoxClass.PlaceholderText = "Класс";
             textBoxClass.Size = new Size(200, 23);
-            textBoxClass.TabIndex = 0;
+            textBoxClass.TabIndex = 1;
             // 
             // textBoxHabitats
             // 
@@ -63,7 +65,7 @@
             textBoxHabitats.Name = "textBoxHabitats";
             textBoxHabitats.PlaceholderText = "Среда обитания";
             textBoxHabitats.Size = new Size(200, 23);
-            textBoxHabitats.TabIndex = 1;
+            textBoxHabitats.TabIndex = 3;
             // 
             // textBoxWeight
             // 
@@ -71,7 +73,7 @@
             textBoxWeight.Name = "textBoxWeight";
             textBoxWeight.PlaceholderText = "Вес";
             textBoxWeight.Size = new Size(200, 23);
-            textBoxWeight.TabIndex = 3;
+            textBoxWeight.TabIndex = 2;
             // 
             // addButton
             // 
@@ -82,7 +84,7 @@
             addButton.Text = "Добавить";
             addButton.Click += addButton_Click;
             // 
-            // Mainform
+            // AddAnimalForm
             // 
             ClientSize = new Size(300, 250);
             Controls.Add(textBoxClass);
@@ -90,7 +92,7 @@
             Controls.Add(textBoxSpecies);
             Controls.Add(textBoxWeight);
             Controls.Add(addButton);
-            Name = "Mainform";
+            Name = "AddAnimalForm";
             Text = "Животные";
             ResumeLayout(false);
             PerformLayout();
