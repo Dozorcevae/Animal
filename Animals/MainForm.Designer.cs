@@ -33,16 +33,17 @@ namespace Animals
             // 
             // listBoxAnimals
             // 
+            listBoxAnimals.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             listBoxAnimals.ItemHeight = 15;
             listBoxAnimals.Location = new Point(8, 27);
             listBoxAnimals.Name = "listBoxAnimals";
             listBoxAnimals.Size = new Size(480, 379);
             listBoxAnimals.TabIndex = 0;
-          //  listBoxAnimals.SelectedIndexChanged += listBoxAnimals_SelectedIndexChanged;
             // 
             // addAnimalButton
             // 
-            addAnimalButton.Location = new Point(8, 413);
+            addAnimalButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            addAnimalButton.Location = new Point(8, 423);
             addAnimalButton.Name = "addAnimalButton";
             addAnimalButton.Size = new Size(268, 30);
             addAnimalButton.TabIndex = 1;
@@ -51,7 +52,8 @@ namespace Animals
             // 
             // deleteAnimalButton
             // 
-            deleteAnimalButton.Location = new Point(282, 413);
+            deleteAnimalButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            deleteAnimalButton.Location = new Point(282, 423);
             deleteAnimalButton.Name = "deleteAnimalButton";
             deleteAnimalButton.Size = new Size(100, 30);
             deleteAnimalButton.TabIndex = 2;
@@ -60,7 +62,8 @@ namespace Animals
             // 
             // editAnimalButton
             // 
-            editAnimalButton.Location = new Point(388, 413);
+            editAnimalButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            editAnimalButton.Location = new Point(388, 423);
             editAnimalButton.Name = "editAnimalButton";
             editAnimalButton.Size = new Size(100, 30);
             editAnimalButton.TabIndex = 3;
@@ -75,13 +78,12 @@ namespace Animals
             menuStrip1.Size = new Size(500, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
-           // menuStrip1.ItemClicked += menuStrip1_ItemClicked;
             // 
             // fileMenu
             // 
             fileMenu.DropDownItems.AddRange(new ToolStripItem[] { addMenuItem, editMenuItem, deleteMenuItem, infoMenuItem });
             fileMenu.Name = "fileMenu";
-            fileMenu.Size = new Size(48, 20);
+            fileMenu.Size = new Size(53, 20);
             fileMenu.Text = "Меню";
             // 
             // addMenuItem
@@ -114,13 +116,14 @@ namespace Animals
             // 
             // MainForm
             // 
-            ClientSize = new Size(500, 451);
+            ClientSize = new Size(500, 461);
             Controls.Add(menuStrip1);
             Controls.Add(deleteAnimalButton);
             Controls.Add(editAnimalButton);
             Controls.Add(listBoxAnimals);
             Controls.Add(addAnimalButton);
             MainMenuStrip = menuStrip1;
+            MinimumSize = new Size(500, 500);
             Name = "MainForm";
             Text = "Список животных";
             Load += MainForm_Load;

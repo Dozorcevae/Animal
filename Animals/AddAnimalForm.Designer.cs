@@ -9,6 +9,8 @@
         private System.Windows.Forms.TextBox textBoxHabitats;
         private System.Windows.Forms.Button addButton;
 
+        
+
       
         /// <summary>
         ///  Required designer variable.
@@ -41,6 +43,7 @@
             textBoxHabitats = new TextBox();
             textBoxWeight = new TextBox();
             addButton = new Button();
+            
             SuspendLayout();
             // 
             // textBoxSpecies
@@ -50,6 +53,8 @@
             textBoxSpecies.PlaceholderText = "Вид";
             textBoxSpecies.Size = new Size(200, 23);
             textBoxSpecies.TabIndex = 0;
+            textBoxSpecies.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            //   textBoxSpecies.TextChanged += textBoxSpecies_TextChanged;
             // 
             // textBoxClass
             // 
@@ -58,6 +63,7 @@
             textBoxClass.PlaceholderText = "Класс";
             textBoxClass.Size = new Size(200, 23);
             textBoxClass.TabIndex = 1;
+            textBoxClass.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             // 
             // textBoxHabitats
             // 
@@ -66,6 +72,7 @@
             textBoxHabitats.PlaceholderText = "Среда обитания";
             textBoxHabitats.Size = new Size(200, 23);
             textBoxHabitats.TabIndex = 3;
+            textBoxHabitats.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             // 
             // textBoxWeight
             // 
@@ -74,6 +81,7 @@
             textBoxWeight.PlaceholderText = "Вес";
             textBoxWeight.Size = new Size(200, 23);
             textBoxWeight.TabIndex = 2;
+            textBoxWeight.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             // 
             // addButton
             // 
@@ -83,6 +91,7 @@
             addButton.TabIndex = 4;
             addButton.Text = "Добавить";
             addButton.Click += addButton_Click;
+            addButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             // 
             // AddAnimalForm
             // 

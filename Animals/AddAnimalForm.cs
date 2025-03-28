@@ -15,6 +15,7 @@ namespace Animals
         {
             InitializeComponent();
             this.animalCollection = animalCollection;
+            this.MinimumSize = new Size(316, 289);
         }
 
         public AddAnimalForm(AnimalCollection animalCollection, BaseAnimal animalToEdit) : this(animalCollection)
@@ -62,5 +63,7 @@ namespace Animals
                 MessageBox.Show("Неверный формат данных: " + ex.Message);
             }
         }
+
+      
     }
 }

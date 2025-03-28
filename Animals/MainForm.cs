@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System;
 using System.Windows.Forms;
 using Animals.Models;
+using System.Runtime.CompilerServices;
 
 namespace Animals
 {
@@ -20,6 +21,7 @@ namespace Animals
 
         public MainForm()
         {
+           
             InitializeComponent();
             animalCollection = new AnimalCollection();
         }
@@ -83,7 +85,7 @@ namespace Animals
         {
             MessageBox.Show("Программа для внесения информации о животных\nРазработано Дозорцевой Еленой, ДТ-360а", "О программе", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
+      
         
     }
 }
