@@ -29,6 +29,7 @@ namespace Animals
             editMenuItem = new ToolStripMenuItem();
             deleteMenuItem = new ToolStripMenuItem();
             infoMenuItem = new ToolStripMenuItem();
+            moveMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -38,15 +39,15 @@ namespace Animals
             listBoxAnimals.ItemHeight = 15;
             listBoxAnimals.Location = new Point(8, 27);
             listBoxAnimals.Name = "listBoxAnimals";
-            listBoxAnimals.Size = new Size(480, 379);
+            listBoxAnimals.Size = new Size(480, 139);
             listBoxAnimals.TabIndex = 0;
             // 
             // addAnimalButton
             // 
             addAnimalButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            addAnimalButton.Location = new Point(8, 423);
+            addAnimalButton.Location = new Point(8, 181);
             addAnimalButton.Name = "addAnimalButton";
-            addAnimalButton.Size = new Size(125, 30);
+            addAnimalButton.Size = new Size(480, 30);
             addAnimalButton.TabIndex = 1;
             addAnimalButton.Text = "Добавить животное";
             addAnimalButton.Click += addAnimalButton_Click;
@@ -54,9 +55,9 @@ namespace Animals
             // deleteAnimalButton
             // 
             deleteAnimalButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            deleteAnimalButton.Location = new Point(139, 423);
+            deleteAnimalButton.Location = new Point(8, 231);
             deleteAnimalButton.Name = "deleteAnimalButton";
-            deleteAnimalButton.Size = new Size(125, 30);
+            deleteAnimalButton.Size = new Size(480, 30);
             deleteAnimalButton.TabIndex = 2;
             deleteAnimalButton.Text = "Удалить";
             deleteAnimalButton.Click += deleteAnimalButton_Click;
@@ -64,9 +65,9 @@ namespace Animals
             // editAnimalButton
             // 
             editAnimalButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            editAnimalButton.Location = new Point(270, 423);
+            editAnimalButton.Location = new Point(8, 281);
             editAnimalButton.Name = "editAnimalButton";
-            editAnimalButton.Size = new Size(125, 30);
+            editAnimalButton.Size = new Size(480, 30);
             editAnimalButton.TabIndex = 3;
             editAnimalButton.Text = "Изменить";
             editAnimalButton.Click += editAnimalButton_Click;
@@ -74,12 +75,12 @@ namespace Animals
             // moveButton
             // 
             moveButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            moveButton.Location = new Point(401, 423);
+            moveButton.Location = new Point(8, 399);
             moveButton.Name = "moveButton";
-            moveButton.Size = new Size(70, 30);
+            moveButton.Size = new Size(480, 30);
             moveButton.TabIndex = 4;
-            moveButton.Text = "Движ";
-            moveButton.Click += editAnimalButton_Click;
+            moveButton.Text = "Многопоточность";
+            moveButton.Click += moveButton_Click;
             // 
             // menuStrip1
             // 
@@ -92,7 +93,7 @@ namespace Animals
             // 
             // fileMenu
             // 
-            fileMenu.DropDownItems.AddRange(new ToolStripItem[] { addMenuItem, editMenuItem, deleteMenuItem, infoMenuItem });
+            fileMenu.DropDownItems.AddRange(new ToolStripItem[] { addMenuItem, moveMenuItem, editMenuItem, deleteMenuItem, infoMenuItem });
             fileMenu.Name = "fileMenu";
             fileMenu.Size = new Size(53, 20);
             fileMenu.Text = "Меню";
@@ -124,6 +125,13 @@ namespace Animals
             infoMenuItem.Size = new Size(128, 22);
             infoMenuItem.Text = "Справка";
             infoMenuItem.Click += ShowAboutDialog;
+            //
+            //moveMenuItem
+            //
+            moveMenuItem.Name = "moveMenuItem";
+            moveMenuItem.Size = new Size(128, 22);
+            moveMenuItem.Text = "Многопоточность";
+            moveMenuItem.Click += MoveMenuItem_Click;
             // 
             // MainForm
             // 
@@ -145,11 +153,17 @@ namespace Animals
             PerformLayout();
         }
 
+        private void MoveMenuItem_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         private ToolStripMenuItem fileMenu;
         private ToolStripMenuItem addMenuItem;
         private ToolStripMenuItem editMenuItem;
         private ToolStripMenuItem deleteMenuItem;
         private ToolStripMenuItem infoMenuItem;
+        private ToolStripMenuItem moveMenuItem;
     }
 }
 

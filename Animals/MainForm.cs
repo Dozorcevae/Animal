@@ -21,10 +21,12 @@ namespace Animals
 
         public MainForm()
         {
-           
             InitializeComponent();
             animalCollection = new AnimalCollection();
+
+            this.moveButton.Click += new System.EventHandler(this.moveButton_Click);
         }
+
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -79,6 +81,11 @@ namespace Animals
             {
                 MessageBox.Show("Сначала выберите животное из списка.");
             }
+        }
+        private void moveButton_Click(object sender, EventArgs e)
+        {
+            MovementForm frm = new MovementForm();
+            frm.Show();
         }
 
         private void ShowAboutDialog(object sendet, EventArgs e)
