@@ -131,7 +131,7 @@ namespace Animals
             moveMenuItem.Name = "moveMenuItem";
             moveMenuItem.Size = new Size(128, 22);
             moveMenuItem.Text = "Многопоточность";
-            moveMenuItem.Click += MoveMenuItem_Click;
+            moveMenuItem.Click += moveMenuItem_Click;
             // 
             // MainForm
             // 
@@ -153,11 +153,7 @@ namespace Animals
             PerformLayout();
         }
 
-        private void MoveMenuItem_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
+      
         private ToolStripMenuItem fileMenu;
         private ToolStripMenuItem addMenuItem;
         private ToolStripMenuItem editMenuItem;

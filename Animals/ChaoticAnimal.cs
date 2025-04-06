@@ -9,9 +9,25 @@ namespace Animals
 {
     public class ChaoticAnimal : BaseAnimal
     {
-        public ChaoticAnimal(string species, string Animalclass, double averageweigth, List<string> habitats)
-            : base(species, Animalclass, averageweigth, habitats)
-        { }
+        public ChaoticAnimal(
+        string species,
+        string name,
+        double age,
+        List<string> environment,
+        double startX,
+        double startY,
+        double speed,
+        double changeInterval
+)
+    : base(species, name, age, environment) 
+        {
+            
+            this.X = startX;
+            this.Y = startY;
+            this.speed = speed;
+            this.changeInterval = changeInterval;
+        }
+
 
         private double speed; //pix/sec, speed 
         private double direcrionX;

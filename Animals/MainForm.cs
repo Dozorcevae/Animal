@@ -24,7 +24,8 @@ namespace Animals
             InitializeComponent();
             animalCollection = new AnimalCollection();
 
-            this.moveButton.Click += new System.EventHandler(this.moveButton_Click);
+            //this.moveButton.Click += new System.EventHandler(this.moveButton_Click);
+
         }
 
 
@@ -83,6 +84,12 @@ namespace Animals
             }
         }
         private void moveButton_Click(object sender, EventArgs e)
+        {
+            MovementForm frm = new MovementForm();
+            frm.Show();
+        }
+
+        private void moveMenuItem_Click(object sender, EventArgs e)
         {
             MovementForm frm = new MovementForm();
             frm.Show();
