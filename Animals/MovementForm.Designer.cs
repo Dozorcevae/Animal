@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Animal
+namespace Animals
 {
     public partial class MovementForm : Form
     {
@@ -16,8 +16,7 @@ namespace Animal
         private StatusStrip statusStrip;      // Статусная строка
         private ToolStripStatusLabel statusLabel; // Надпись в статус-строке
 
-        public MovementForm() => InitializeComponent();
-
+       
         private void InitializeComponent()
         {
             // Инициируем компоненты
