@@ -9,7 +9,7 @@ namespace Animals
         private System.Windows.Forms.Button deleteAnimalButton;
         private System.Windows.Forms.Button editAnimalButton;
         private System.Windows.Forms.MenuStrip menuStrip1;
-
+        private System.Windows.Forms.Button moveButton;
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null)) components.Dispose();
@@ -22,6 +22,7 @@ namespace Animals
             addAnimalButton = new Button();
             deleteAnimalButton = new Button();
             editAnimalButton = new Button();
+            moveButton = new Button();
             menuStrip1 = new MenuStrip();
             fileMenu = new ToolStripMenuItem();
             addMenuItem = new ToolStripMenuItem();
@@ -45,7 +46,7 @@ namespace Animals
             addAnimalButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             addAnimalButton.Location = new Point(8, 423);
             addAnimalButton.Name = "addAnimalButton";
-            addAnimalButton.Size = new Size(268, 30);
+            addAnimalButton.Size = new Size(125, 30);
             addAnimalButton.TabIndex = 1;
             addAnimalButton.Text = "Добавить животное";
             addAnimalButton.Click += addAnimalButton_Click;
@@ -53,9 +54,9 @@ namespace Animals
             // deleteAnimalButton
             // 
             deleteAnimalButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            deleteAnimalButton.Location = new Point(282, 423);
+            deleteAnimalButton.Location = new Point(139, 423);
             deleteAnimalButton.Name = "deleteAnimalButton";
-            deleteAnimalButton.Size = new Size(100, 30);
+            deleteAnimalButton.Size = new Size(125, 30);
             deleteAnimalButton.TabIndex = 2;
             deleteAnimalButton.Text = "Удалить";
             deleteAnimalButton.Click += deleteAnimalButton_Click;
@@ -63,12 +64,22 @@ namespace Animals
             // editAnimalButton
             // 
             editAnimalButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            editAnimalButton.Location = new Point(388, 423);
+            editAnimalButton.Location = new Point(270, 423);
             editAnimalButton.Name = "editAnimalButton";
-            editAnimalButton.Size = new Size(100, 30);
+            editAnimalButton.Size = new Size(125, 30);
             editAnimalButton.TabIndex = 3;
             editAnimalButton.Text = "Изменить";
             editAnimalButton.Click += editAnimalButton_Click;
+            // 
+            // moveButton
+            // 
+            moveButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            moveButton.Location = new Point(401, 423);
+            moveButton.Name = "moveButton";
+            moveButton.Size = new Size(70, 30);
+            moveButton.TabIndex = 4;
+            moveButton.Text = "Движ";
+            moveButton.Click += editAnimalButton_Click;
             // 
             // menuStrip1
             // 
@@ -122,6 +133,7 @@ namespace Animals
             Controls.Add(editAnimalButton);
             Controls.Add(listBoxAnimals);
             Controls.Add(addAnimalButton);
+            Controls.Add(moveButton);
             MainMenuStrip = menuStrip1;
             MinimumSize = new Size(500, 500);
             Name = "MainForm";

@@ -7,9 +7,18 @@ namespace Animals.Models{
         public string Class {get; set; }
         public double AverageWeigth {get; set; }
         public List<string> Habitats {get; set; }
+        public double X { get; set; }
+        public double Y { get; set; }
+
+        public virtual void Stop() { }
+        public virtual void Pause() { }
+        public virtual void Resume() { }
+        public virtual void Start() { }
 
 
-    public BaseAnimal(string species, string Animalclass, double averageweigth, List<string> habitats){
+
+
+        public BaseAnimal(string species, string Animalclass, double averageweigth, List<string> habitats){
 
             if (averageweigth <= 0)
                 throw new InvalidWeigthException("Вес должен быть положительным!");
