@@ -24,6 +24,6 @@ namespace Animals.Models{
     {
             return $"Вид: {Species}, Класс: {Class}, Вес: {AverageWeigth} кг.";
     }
-    public abstract string MakeSoundOfAnimal();
+    //public abstract string MakeSoundOfAnimal();
     }
 }
