@@ -9,138 +9,79 @@ namespace Animals
 {
     public class ChaoticAnimal : BaseAnimal
     {
-        public ChaoticAnimal(
-        string species,
-        string name,
-        double age,
-        List<string> environment,
-        double startX,
-        double startY,
-        double speed,
-        double changeInterval
-)
-    : base(species, name, age, environment) 
+        private double speed;            // линейная скорость (пикселей/сек)
+        private double changeInterval;   // интервал смены направления (сек)
+        private double timeLeftToChange; // оставшееся время до смены направления
+        private double directionX;       // горизонтальная составляющая вектора движения (нормированная)
+        private double directionY;       // вертикальная составляющая
+        private static Random rand = new Random();
+
+        public ChaoticAnimal(string species, string name, double age, List<string> environment,
+                             double startX, double startY, double speed, double changeInterval)
+            : base(species, name, age, environment)
         {
-            
+            // Устанавливаем начальные координаты
             this.X = startX;
             this.Y = startY;
             this.speed = speed;
             this.changeInterval = changeInterval;
-        }
+            this.timeLeftToChange = changeInterval;
 
-
-        private double speed; //pix/sec, speed 
-        private double direcrionX;
-        private double directionY;
-
-        private bool StopRequested;
-        private bool IsPaused;
-        private readonly object locker = new object();
-
-        //остаток времени до смены направления, сек
-        private double timeTillChangeDirection;
-
-        //время в сек раз в которое меняем направление
-        private double changeInterval;
-
-        private Thread? movementThread;
-        
-        //генератор случайных чисел
-        private static Random random = new Random();
-
-        public ChaoticAnimal(
-            double x,
-            double y,
-            double speed,
-            double changeInterval
-            ) 
-            : base ("Chaotic", "NoName", 0.0, new List<string>())
-        {
-            this.direcrionX = x;
-            this.directionY = y;
-
-            this.speed = speed;
-            this.changeInterval = changeInterval;
-            this.timeTillChangeDirection = changeInterval;
-
+            // Инициализируем случайное направление
             SetRandomDirection();
         }
 
         private void SetRandomDirection()
         {
-            double angle = random.NextDouble() * 2 * Math.PI;
-            direcrionX = Math.Cos(angle);
+            double angle = rand.NextDouble() * 2 * Math.PI;
+            directionX = Math.Cos(angle);
             directionY = Math.Sin(angle);
         }
-        public override void Start()
-        {
-            StopRequested = false;
-            IsPaused = false;
-
-            if (movementThread == null || !movementThread.IsAlive)
-            {
-                movementThread = new Thread(MoveChaoticLoop);
-                movementThread.Start();
-
-            }
-        }
-
-        public override void Stop()
-        {
-            lock (locker)
-            {
-                StopRequested = true;
-                IsPaused = false;
-
-                Monitor.PulseAll(locker);
-            }
-            movementThread?.Join();
-        }
-
-        public override void Pause()
-        {
-            lock (locker)
-            {
-                IsPaused = true;
-            }
-        }
-
-        public override void Resume()
-        {
-            lock (locker)
-            {
-                IsPaused = false;
-                Monitor.PulseAll(locker);
-            }
-        }
-
-        private void MoveChaoticLoop()
+        public override void Run()
         {
             double dt = 0.05;
-            int sleepMs = 50;
-
-            while (!StopRequested)
+            while (!stopRequested)
             {
                 lock (locker)
                 {
-                    while (IsPaused && !StopRequested)
-                    {
+                    while (isPaused && !stopRequested)
                         Monitor.Wait(locker);
-                    }
                 }
-                if (StopRequested)
+                if (stopRequested)
                     break;
-                timeTillChangeDirection -= dt;
-                if(timeTillChangeDirection <= 0.0)
+                timeLeftToChange -= dt;
+                if(timeLeftToChange <= 0)
                 {
                     SetRandomDirection();
-                    timeTillChangeDirection = changeInterval;
+                    timeLeftToChange = changeInterval;
                 }
 
-                X += direcrionX * speed * dt;
+                X += directionX * speed * dt;
                 Y += directionY * speed * dt;
 
-                Thread.Sleep(sleepMs);
+                // ogranichenie po granicam
+                Rectangle b = Boundary;
+                if (X < b.Left)
+                {
+                    X = b.Left;
+                    directionX = -directionX;
+                }
+                if (X > b.Right)
+                {
+                    X = b.Right;
+                    directionX = -directionX;
+                }
+                if (Y < b.Top)
+                {
+                    Y = b.Top;
+                    directionY = -directionY;
+                }
+                if (Y > b.Bottom)
+                {
+                    Y = b.Bottom;
+                    directionY = -directionY;
+                }
+                Thread.Sleep(50);
             }
         }
     }

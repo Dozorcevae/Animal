@@ -55,6 +55,7 @@ namespace Animals
             btnStart.Size = new Size(100, 30);
             btnStart.TabIndex = 2;
             btnStart.Text = "Старт";
+            btnStart.Click += btnStart_Click;
             // 
             // btnPause
             // 
@@ -120,6 +121,8 @@ namespace Animals
             statusStrip.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
+            this.panelDisplay.Resize += new EventHandler(panelDisplay_Resize);
+
         }
     }
 }
