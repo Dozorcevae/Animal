@@ -15,6 +15,11 @@ namespace Animals
         private ComboBox comboBoxPriority;    // Смена приоритета потоков
         private StatusStrip statusStrip;      // Статусная строка
         private ToolStripStatusLabel statusLabel; // Надпись в статус-строке
+        // Объявляем два отдельных элемента для статусной строки:
+        private System.Windows.Forms.ToolStripStatusLabel statusLabelChaotic;
+        private System.Windows.Forms.ToolStripStatusLabel statusLabelCircle;
+
+
 
 
         private void InitializeComponent()
@@ -94,11 +99,34 @@ namespace Animals
             // 
             // statusStrip
             // 
-            statusStrip.Items.AddRange(new ToolStripItem[] { statusLabel });
-            statusStrip.Location = new Point(0, 428);
-            statusStrip.Name = "statusStrip";
-            statusStrip.Size = new Size(641, 22);
-            statusStrip.TabIndex = 7;
+            //statusStrip.Items.AddRange(new ToolStripItem[] { statusLabel });
+            //statusStrip.Location = new Point(0, 428);
+            //statusStrip.Name = "statusStrip";
+            //statusStrip.Size = new Size(641, 22);
+            //statusStrip.TabIndex = 7;
+
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.statusLabelChaotic = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusLabelCircle = new System.Windows.Forms.ToolStripStatusLabel();
+
+            // Настройка первого индикатора (хаотичные животные)
+            this.statusLabelChaotic.Name = "statusLabelChaotic";
+            this.statusLabelChaotic.Size = new System.Drawing.Size(200, 17);
+            this.statusLabelChaotic.Text = "Хаотичные: неизвестно";
+
+            // Настройка второго индикатора (круговые животные)
+            this.statusLabelCircle.Name = "statusLabelCircle";
+            this.statusLabelCircle.Size = new System.Drawing.Size(200, 17);
+            this.statusLabelCircle.Text = "Круговые: неизвестно";
+
+            // Добавляем оба элемента в статусную строку:
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusLabelChaotic,
+            this.statusLabelCircle});
+
+            // Добавляем StatusStrip в коллекцию Controls формы:
+            this.Controls.Add(this.statusStrip);
+
             // 
             // statusLabel
             // 

@@ -24,9 +24,8 @@ namespace Animals
             //btnCreate.Click += btnCreate_Click;
 
             panelDisplay.Paint += PanelDisplay_Paint;
-       
             refreshTimer = new System.Windows.Forms.Timer();
-            refreshTimer.Interval = 50;
+            refreshTimer.Interval = 500;  // Интервал обновления, например, 500 мс
             refreshTimer.Tick += (s, e) =>
             {
                 panelDisplay.Invalidate();
@@ -34,15 +33,20 @@ namespace Animals
             };
             refreshTimer.Start();
 
-            // Установка границ для хаотичных животных на основе панели
-            BaseAnimal.Boundary = new Rectangle(0, 0, panelDisplay.ClientSize.Width, panelDisplay.ClientSize.Height);
-
+            
             // Настраиваем общие параметры для круговых животных
             int margin = 10;
             int width = panelDisplay.ClientSize.Width;
             int height = panelDisplay.ClientSize.Height;
             int centerX = width / 2;
             int centerY = height / 2;
+
+            // Инициализация границ, центра и т.д.
+            BaseAnimal.Boundary = new Rectangle(0, 0, panelDisplay.ClientSize.Width, panelDisplay.ClientSize.Height);
+
+            CircleAnimal.CommonCenter = new Point(panelDisplay.ClientSize.Width / 2, panelDisplay.ClientSize.Height / 2);
+            CircleAnimal.CommonRadius = Math.Min(panelDisplay.ClientSize.Width, panelDisplay.ClientSize.Height) / 2 - margin;
+
             CircleAnimal.CommonCenter = new Point(centerX, centerY);
             // Радиус выбирается так, чтобы круг полностью помещался в panelDisplay
             CircleAnimal.CommonRadius = Math.Min(width, height) / 2 - margin;
@@ -81,12 +85,30 @@ namespace Animals
         // Обновление статусной строки: можно выводить общее число рабочих/пауза и даже id потока
         private void UpdateStatus()
         {
-            string status = "";
-            foreach (var animal in animals)
+            string chaoticStatus = "Остановлены";
+            string circleStatus = "Остановлены";
+
+            var chaoticAnimals = animals.Where(a => a is ChaoticAnimal);
+            if (chaoticAnimals.Any())
             {
-                status += $"{animal.Species} ({animal.GetStatus()}); ";
+                if (chaoticAnimals.Any(a => a.GetStatus() == "Работает"))
+                    chaoticStatus = "Работают";
+                else if (chaoticAnimals.Any(a => a.GetStatus() == "На паузе"))
+                    chaoticStatus = "На паузе";
             }
-            statusLabel.Text = status;
+            // Перебор всех круговых животных
+            var circleAnimals = animals.Where(a => a is CircleAnimal);
+            if (circleAnimals.Any())
+            {
+                if (circleAnimals.Any(a => a.GetStatus() == "Работает"))
+                    circleStatus = "Работают";
+                else if (circleAnimals.Any(a => a.GetStatus() == "На паузе"))
+                    circleStatus = "На паузе";
+            }
+
+            // Обновляем элементы статусной строки
+            statusLabelChaotic.Text = $"Хаотичные: {chaoticStatus}";
+            statusLabelCircle.Text = $"Круговые: {circleStatus}";
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
