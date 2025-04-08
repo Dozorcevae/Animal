@@ -12,7 +12,7 @@ namespace Animals.Models
         public static double CommonRadius { get; set; } = 150.0;
 
         private double angularSpeed; // угловая скорость (рад/сек)
-        private double currentAngle; // текущий угол
+        private double currentAngle = 0;
         private int sleepInterval = 50;
 
         public CircleAnimal(
@@ -25,6 +25,9 @@ namespace Animals.Models
         {
             this.angularSpeed = angularSpeed;
             this.currentAngle = 0;
+
+            X = CommonCenter.X + CommonRadius * Math.Cos(currentAngle);
+            Y = CommonCenter.Y + CommonRadius * Math.Sin(currentAngle);
         }
 
         public override void Run()

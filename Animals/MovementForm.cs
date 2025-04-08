@@ -21,7 +21,7 @@ namespace Animals
             btnResume.Click += btnResume_Click;
             btnStop.Click += btnStop_Click;
             btnStart.Click += btnStart_Click;
-            btnCreate.Click += btnCreate_Click;
+            //btnCreate.Click += btnCreate_Click;
 
             panelDisplay.Paint += PanelDisplay_Paint;
 
@@ -49,8 +49,8 @@ namespace Animals
 
             // Инициализация comboBox приоритетов, если не задана
             comboBoxPriority.Items.Clear();
-            comboBoxPriority.Items.AddRange(new object[] { "Lowest", "BelowNormal", "Normal", "AboveNormal", "Highest" });
-            comboBoxPriority.SelectedItem = "Normal";
+            comboBoxPriority.Items.AddRange(new object[] { "1", "2", "3", "4", "5" });
+            comboBoxPriority.SelectedItem = "3";
 
             // Инициализация таймера (используем System.Windows.Forms.Timer)
             refreshTimer = new System.Windows.Forms.Timer();
@@ -105,19 +105,19 @@ namespace Animals
                 {
                     switch (comboBoxPriority.SelectedItem.ToString())
                     {
-                        case "Lowest":
+                        case "1":
                             animal.movementThread.Priority = ThreadPriority.Lowest;
                             break;
-                        case "BelowNormal":
+                        case "2":
                             animal.movementThread.Priority = ThreadPriority.BelowNormal;
                             break;
-                        case "Normal":
+                        case "3":
                             animal.movementThread.Priority = ThreadPriority.Normal;
                             break;
-                        case "AboveNormal":
+                        case "4":
                             animal.movementThread.Priority = ThreadPriority.AboveNormal;
                             break;
-                        case "Highest":
+                        case "5":
                             animal.movementThread.Priority = ThreadPriority.Highest;
                             break;
                     }
