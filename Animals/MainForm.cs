@@ -46,7 +46,7 @@ namespace Animals
             listBoxAnimals.Items.Clear();
             foreach (var animal in animalCollection.GetAll())
             {
-                listBoxAnimals.Items.Add(animal.GetInfo());
+                //listBoxAnimals.Items.Add(animal.GetInfo());
             }
         }
 

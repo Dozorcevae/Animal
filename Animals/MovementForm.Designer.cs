@@ -38,6 +38,7 @@ namespace Animals
             panelDisplay.Name = "panelDisplay";
             panelDisplay.Size = new Size(500, 400);
             panelDisplay.TabIndex = 0;
+            panelDisplay.Resize += panelDisplay_Resize;
             // 
             // btnCreate
             // 
@@ -95,7 +96,7 @@ namespace Animals
             statusStrip.Items.AddRange(new ToolStripItem[] { statusLabel });
             statusStrip.Location = new Point(0, 428);
             statusStrip.Name = "statusStrip";
-            statusStrip.Size = new Size(800, 22);
+            statusStrip.Size = new Size(641, 22);
             statusStrip.TabIndex = 7;
             // 
             // statusLabel
@@ -106,7 +107,7 @@ namespace Animals
             // 
             // MovementForm
             // 
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(641, 450);
             Controls.Add(panelDisplay);
             Controls.Add(btnCreate);
             Controls.Add(btnStart);
@@ -121,7 +122,6 @@ namespace Animals
             statusStrip.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
-            this.panelDisplay.Resize += new EventHandler(panelDisplay_Resize);
 
         }
     }

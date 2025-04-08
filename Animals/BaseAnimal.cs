@@ -1,29 +1,34 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading;
 
-namespace Animals.Models{
-    public abstract class BaseAnimal{
-        public string Species {get; set; }
-        public string Class {get; set; }
-        public double AverageWeigth {get; set; }
-        public List<string> Habitats {get; set; }
-        //коорддинаты объектов
+namespace Animals.Models
+{
+    public abstract class BaseAnimal
+    {
+        public string Species { get; set; }
+        public string AnimalClass { get; set; }
+        public double AverageWeigth { get; set; }
+        public List<string> Habitats { get; set; }
+
+        // координаты объекта
         public double X { get; set; }
         public double Y { get; set; }
-        // границы объектов для Хаотичных животных
-        public static Rectangle Boundary { get; set; } = new Rectangle(0, 0, 500, 400);
 
-        // поля для управления потоком 
+        // границы для хаотичных животных – задаются из формы
+        public static System.Drawing.Rectangle Boundary { get; set; } = new System.Drawing.Rectangle(0, 0, 500, 400);
+
+        // Флаги для управления потоком
         protected bool stopRequested = false;
         protected bool isPaused = false;
         protected readonly object locker = new object();
-        protected Thread movementThread;
+        public Thread movementThread;
 
-        //основной цикл движения
+        // Абстрактный метод движения
         public abstract void Run();
 
-        protected virtual void Start()
+        // Запуск потока
+        public virtual void Start()
         {
             stopRequested = false;
             isPaused = false;
@@ -48,6 +53,7 @@ namespace Animals.Models{
                 Monitor.PulseAll(locker);
             }
         }
+
         public virtual void Stop()
         {
             lock (locker)
@@ -59,22 +65,26 @@ namespace Animals.Models{
             if (movementThread != null && movementThread.IsAlive)
                 movementThread.Join();
         }
-        
-        public BaseAnimal(string species, string Animalclass, double averageweigth, List<string> habitats){
 
-            if (averageweigth <= 0)
-                throw new InvalidWeigthException("Вес должен быть положительным!");
+        public BaseAnimal(string species, string animalClass, double averageWeigth, List<string> habitats)
+        {
+            if (averageWeigth <= 0)
+                throw new ArgumentException("Вес должен быть положительным!");
 
-        Species = species;
-        Class = Animalclass;
-        AverageWeigth = averageweigth;
-        Habitats = habitats;
-    }
+            Species = species;
+            AnimalClass = animalClass;
+            AverageWeigth = averageWeigth;
+            Habitats = habitats;
+        }
 
-    public virtual string GetInfo()
-    {
-            return $"Вид: {Species}, Класс: {Class}, Вес: {AverageWeigth} кг.";
-    }
-    //public abstract string MakeSoundOfAnimal();
+        // Для вывода инфо можно добавить дополнительное свойство статуса
+        public virtual string GetStatus()
+        {
+            if (stopRequested)
+                return "Остановлен";
+            if (isPaused)
+                return "На паузе";
+            return "Работает";
+        }
     }
 }

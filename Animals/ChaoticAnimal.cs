@@ -1,87 +1,87 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Animals.Models;
+using System.Threading;
 
-namespace Animals
+namespace Animals.Models
 {
     public class ChaoticAnimal : BaseAnimal
     {
-        private double speed;            // линейная скорость (пикселей/сек)
+        private double speed;            // скорость в пикселях в секунду
         private double changeInterval;   // интервал смены направления (сек)
-        private double timeLeftToChange; // оставшееся время до смены направления
-        private double directionX;       // горизонтальная составляющая вектора движения (нормированная)
-        private double directionY;       // вертикальная составляющая
-        private static Random rand = new Random();
+        private Random rand;
 
-        public ChaoticAnimal(string species, string name, double age, List<string> environment,
-                             double startX, double startY, double speed, double changeInterval)
-            : base(species, name, age, environment)
+        public ChaoticAnimal(
+            string species,
+            string animalClass,
+            double averageWeigth,
+            List<string> habitats,
+            double startX,
+            double startY,
+            double speed,
+            double changeInterval)
+            : base(species, animalClass, averageWeigth, habitats)
         {
-            // Устанавливаем начальные координаты
             this.X = startX;
             this.Y = startY;
             this.speed = speed;
             this.changeInterval = changeInterval;
-            this.timeLeftToChange = changeInterval;
-
-            // Инициализируем случайное направление
-            SetRandomDirection();
+            rand = new Random();
         }
 
-        private void SetRandomDirection()
-        {
-            double angle = rand.NextDouble() * 2 * Math.PI;
-            directionX = Math.Cos(angle);
-            directionY = Math.Sin(angle);
-        }
         public override void Run()
         {
-            double dt = 0.05;
+            double angle = rand.NextDouble() * 2 * Math.PI; // начальный угол движения
+            DateTime lastDirectionChange = DateTime.Now;
+            int sleepInterval = 50; // интервал обновления в миллисекундах
+
             while (!stopRequested)
             {
+                // Пауза
                 lock (locker)
                 {
-                    while (isPaused && !stopRequested)
+                    while (isPaused)
+                    {
                         Monitor.Wait(locker);
-                }
-                if (stopRequested)
-                    break;
-                timeLeftToChange -= dt;
-                if(timeLeftToChange <= 0)
-                {
-                    SetRandomDirection();
-                    timeLeftToChange = changeInterval;
+                    }
                 }
 
-                X += directionX * speed * dt;
-                Y += directionY * speed * dt;
+                // расчёт смещения (учитывая, что 50 мс ~ 0,05 сек)
+                double deltaTime = sleepInterval / 1000.0;
+                double dx = speed * Math.Cos(angle) * deltaTime;
+                double dy = speed * Math.Sin(angle) * deltaTime;
+                X += dx;
+                Y += dy;
 
-                // ogranichenie po granicam
-                Rectangle b = Boundary;
-                if (X < b.Left)
+                // Проверка границ – если достигли края, инвертируем направление
+                if (X < Boundary.Left)
                 {
-                    X = b.Left;
-                    directionX = -directionX;
+                    X = Boundary.Left;
+                    angle = Math.PI - angle;
                 }
-                if (X > b.Right)
+                if (X > Boundary.Right)
                 {
-                    X = b.Right;
-                    directionX = -directionX;
+                    X = Boundary.Right;
+                    angle = Math.PI - angle;
                 }
-                if (Y < b.Top)
+                if (Y < Boundary.Top)
                 {
-                    Y = b.Top;
-                    directionY = -directionY;
+                    Y = Boundary.Top;
+                    angle = -angle;
                 }
-                if (Y > b.Bottom)
+                if (Y > Boundary.Bottom)
                 {
-                    Y = b.Bottom;
-                    directionY = -directionY;
+                    Y = Boundary.Bottom;
+                    angle = -angle;
                 }
-                Thread.Sleep(50);
+
+                // Смена направления через заданный интервал времени
+                if ((DateTime.Now - lastDirectionChange).TotalSeconds >= changeInterval)
+                {
+                    angle = rand.NextDouble() * 2 * Math.PI;
+                    lastDirectionChange = DateTime.Now;
+                }
+
+                Thread.Sleep(sleepInterval);
             }
         }
     }

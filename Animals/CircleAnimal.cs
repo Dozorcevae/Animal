@@ -1,61 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms.Design;
-using Animals.Models;
+using System.Drawing;
+using System.Threading;
 
-
-namespace Animal
+namespace Animals.Models
 {
     public class CircleAnimal : BaseAnimal
     {
-        // Параметры движения по окружности:
+        
+        public static Point CommonCenter { get; set; }
+        public static double CommonRadius { get; set; } = 150.0;
 
-        private double angle;   // Текущий угол в радианах
-        private double omega;   // Угловая скорость (рад/сек)
-        public static Point CommonCenter { get; set; } = new Point(250, 200);
-        public double CommonRadius { get; set; } = 150;
-
+        private double angularSpeed; // угловая скорость (рад/сек)
+        private double currentAngle; // текущий угол
+        private int sleepInterval = 50;
 
         public CircleAnimal(
-        string species,
-        string name,
-        double age,
-        List<string> environment,
-        double omega
-        )
-        : base(species, name, age, environment)
+            string species,
+            string animalClass,
+            double averageWeigth,
+            List<string> habitats,
+            double angularSpeed)
+            : base(species, animalClass, averageWeigth, habitats)
         {
-            this.omega = omega;
-            this.angle = 0;
-            // Начальные координаты берём из CommonCenter и CommonRadius
-            this.X = CommonCenter.X + CommonRadius * Math.Cos(angle);
-            this.Y = CommonCenter.Y + CommonRadius * Math.Sin(angle);
+            this.angularSpeed = angularSpeed;
+            this.currentAngle = 0;
         }
-
-
 
         public override void Run()
         {
-            double dt = 0.05;
             while (!stopRequested)
             {
                 lock (locker)
                 {
-                    while (isPaused && stopRequested)
+                    while (isPaused)
+                    {
                         Monitor.Wait(locker);
+                    }
                 }
-                if (stopRequested)
-                    break;
 
-                angle += omega * dt;
+                double deltaTime = sleepInterval / 1000.0;
+                currentAngle += angularSpeed * deltaTime;
+                // нормализуем угол, чтобы не разрастался бесконечно
+                if (currentAngle > 2 * Math.PI)
+                    currentAngle -= 2 * Math.PI;
 
-                this.X = CommonCenter.X + CommonRadius * Math.Cos(angle);
-                this.Y = CommonCenter.Y + CommonRadius * Math.Sin(angle);
+                // Вычисляем координаты по параметрическим уравнениям круга
+                X = CommonCenter.X + CommonRadius * Math.Cos(currentAngle);
+                Y = CommonCenter.Y + CommonRadius * Math.Sin(currentAngle);
 
-                Thread.Sleep(50);
+                Thread.Sleep(sleepInterval);
             }
         }
     }

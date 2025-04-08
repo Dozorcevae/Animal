@@ -24,7 +24,7 @@ namespace Animals
             isEditMode = true;
 
             textBoxSpecies.Text = animalToEdit.Species;
-            textBoxClass.Text = animalToEdit.Class;
+            textBoxClass.Text = animalToEdit.AnimalClass;
             textBoxWeight.Text = animalToEdit.AverageWeigth.ToString();
             textBoxHabitats.Text = string.Join(",", animalToEdit.Habitats);
             addButton.Text = "Сохранить";
@@ -42,14 +42,9 @@ namespace Animals
                 if (isEditMode)
                 {
                     animalToEdit.Species = species;
-                    animalToEdit.Class = animalClass;
+                    animalToEdit.AnimalClass = animalClass;
                     animalToEdit.AverageWeigth = weight;
                     animalToEdit.Habitats = habitats;
-                }
-                else
-                {
-                    var animal = new AnimalModel(species, animalClass, weight, habitats);
-                    animalCollection.Add(animal);
                 }
 
                 this.Close();
