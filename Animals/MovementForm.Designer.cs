@@ -85,9 +85,10 @@ namespace Animals
             // comboBoxPriority
             // 
             comboBoxPriority.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxPriority.Items.AddRange(new object[] { "Lowest", "BelowNormal", "Normal", "AboveNormal", "Highest" });
+            comboBoxPriority.Items.AddRange(new object[] { "1", "2", "3", "4", "5" });
             comboBoxPriority.Location = new Point(530, 220);
             comboBoxPriority.Name = "comboBoxPriority";
+            comboBoxPriority.Text = "Скорость";
             comboBoxPriority.Size = new Size(100, 23);
             comboBoxPriority.TabIndex = 6;
             // 

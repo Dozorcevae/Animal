@@ -24,7 +24,7 @@ namespace Animals
             //btnCreate.Click += btnCreate_Click;
 
             panelDisplay.Paint += PanelDisplay_Paint;
-
+       
             refreshTimer = new System.Windows.Forms.Timer();
             refreshTimer.Interval = 50;
             refreshTimer.Tick += (s, e) =>
