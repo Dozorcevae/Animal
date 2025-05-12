@@ -11,7 +11,7 @@ namespace Animals.Domain
     public abstract class BaseAnimal
     {
         public string Species { get; set; } = string.Empty;
-        public string AnimalClass { get; set; } = string.Empty;
+        public AnimalClass AnimalClass { get; set; }           
         public double AverageWeight { get; set; }
         public List<string> Habitats { get; set; } = new();
 

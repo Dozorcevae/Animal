@@ -9,7 +9,6 @@ using Animals.Domain.Interfaces;
 
 namespace Animals.Simulation.Strategies
 {
-    // Хаотичное движение в пределах Bounds.
     public sealed class ChaoticMovement : IMovementStrategy
     {
         public Rectangle Bounds { get; set; } = new(0, 0, 600, 400);

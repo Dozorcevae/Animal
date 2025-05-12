@@ -1,42 +1,37 @@
-﻿// Animals.WinForms / AddAnimalForm.cs
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Animals.Domain;                       // BaseAnimal, AnimalCollection
-using Animals.Domain.Interfaces;            // IMovementStrategy
-using Animals.Simulation;                   // SimulationManager
-using Animals.Simulation.Strategies;        // ChaoticMovement
+using Animals.Domain;
+using Animals.Simulation;
+using Animals.Simulation.Strategies;
 
 namespace Animals.WinForms
 {
     public partial class AddAnimalForm : Form
     {
         private readonly AnimalCollection _collection;
-        private readonly SimulationManager _sim;          // можно передавать null
+        private readonly SimulationManager _sim;
         private readonly BaseAnimal? _animalToEdit;
-        private readonly bool _isEditMode;
+        private readonly bool _isEdit;
 
-        // режим "добавить"
-        public AddAnimalForm(AnimalCollection collection, SimulationManager sim)
+        public AddAnimalForm(AnimalCollection col, SimulationManager sim)
         {
             InitializeComponent();
-            _collection = collection;
+            _collection = col;
             _sim = sim;
-            MinimumSize = new System.Drawing.Size(316, 289);
+            comboClass.DataSource = Enum.GetValues(typeof(AnimalClass)); // заполняем выпадающий список
         }
 
-        // режим "редактировать"
-        public AddAnimalForm(AnimalCollection collection,
-                             SimulationManager sim,
-                             BaseAnimal animalToEdit) : this(collection, sim)
+        public AddAnimalForm(AnimalCollection col, SimulationManager sim, BaseAnimal toEdit)
+            : this(col, sim)
         {
-            _animalToEdit = animalToEdit;
-            _isEditMode = true;
+            _animalToEdit = toEdit;
+            _isEdit = true;
 
-            textBoxSpecies.Text = animalToEdit.Species;
-            textBoxClass.Text = animalToEdit.AnimalClass;
-            textBoxWeight.Text = animalToEdit.AverageWeight.ToString();
-            textBoxHabitats.Text = string.Join(",", animalToEdit.Habitats);
+            textBoxSpecies.Text = toEdit.Species;
+            comboClass.SelectedItem = toEdit.AnimalClass;
+            textBoxWeight.Text = toEdit.AverageWeight.ToString();
+            textBoxHabitats.Text = string.Join(",", toEdit.Habitats);
             addButton.Text = "Сохранить";
         }
 
@@ -44,56 +39,49 @@ namespace Animals.WinForms
         {
             try
             {
-                string species = textBoxSpecies.Text.Trim();
-                string animalClass = textBoxClass.Text.Trim();
+                var species = textBoxSpecies.Text.Trim();
+                var cls = (AnimalClass)comboClass.SelectedItem!;
+
                 if (!double.TryParse(textBoxWeight.Text.Replace(',', '.'),
                                      System.Globalization.NumberStyles.Float,
                                      System.Globalization.CultureInfo.InvariantCulture,
-                                     out double weight))
-                {
+                                     out var weight))
                     throw new FormatException("Вес должен быть числом.");
-                }
+
+                if (weight <= 0)
+                    throw new InvalidWeightException("Вес должен быть положительным.");
 
                 var habitats = new List<string>();
                 foreach (var h in textBoxHabitats.Text.Split(',', StringSplitOptions.RemoveEmptyEntries))
                     habitats.Add(h.Trim());
 
-                if (_isEditMode && _animalToEdit != null)
+                if (_isEdit && _animalToEdit != null)
                 {
                     _animalToEdit.Species = species;
-                    _animalToEdit.AnimalClass = animalClass;
+                    _animalToEdit.AnimalClass = cls;
                     _animalToEdit.AverageWeight = weight;
                     _animalToEdit.Habitats = habitats;
                 }
                 else
                 {
-                    var newAnimal = new ChaoticAnimal
+                    var animal = new ChaoticAnimal
                     {
                         Species = species,
-                        AnimalClass = animalClass,
+                        AnimalClass = cls,
                         AverageWeight = weight,
                         Habitats = habitats,
                         Movement = new ChaoticMovement()
                     };
-
-                    _collection.Add(newAnimal);
-                    _sim?.Add(newAnimal);        // если SimulationManager передан
+                    _collection.Add(animal);
+                    _sim.Add(animal);
                 }
 
                 DialogResult = DialogResult.OK;
                 Close();
             }
-            catch (InvalidWeightException ex)
-            {
-                MessageBox.Show($"Ошибка: {ex.Message}");
-            }
-            catch (FormatException ex)
-            {
-                MessageBox.Show($"Неверный формат данных: {ex.Message}");
-            }
             catch (Exception ex)
             {
-                MessageBox.Show($"Неизвестная ошибка: {ex.Message}");
+                MessageBox.Show($"Ошибка: {ex.Message}");
             }
         }
     }
