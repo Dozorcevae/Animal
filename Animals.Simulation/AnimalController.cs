@@ -4,7 +4,6 @@ using Animals.Domain;
 
 namespace Animals.Simulation
 {
-    // Если нужно управлять каждым животным отдельно.
     public class AnimalController
     {
         private readonly BaseAnimal _animal;
