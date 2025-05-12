@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Animal.WinForms", "Animal.W
 		{DB4F2656-2404-4BE4-B6F4-866A37C8EC7A} = {DB4F2656-2404-4BE4-B6F4-866A37C8EC7A}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Animals.Server", "Animals.Server\Animals.Server.csproj", "{89BC3618-09F1-49AA-AB18-ECFFE4633696}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{233B22A6-286C-4F56-8C37-CA6D73D6A162}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{233B22A6-286C-4F56-8C37-CA6D73D6A162}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{233B22A6-286C-4F56-8C37-CA6D73D6A162}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89BC3618-09F1-49AA-AB18-ECFFE4633696}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89BC3618-09F1-49AA-AB18-ECFFE4633696}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89BC3618-09F1-49AA-AB18-ECFFE4633696}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89BC3618-09F1-49AA-AB18-ECFFE4633696}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

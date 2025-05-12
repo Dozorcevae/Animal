@@ -1,11 +1,10 @@
-﻿// Animals.WinForms / MainForm.cs
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows.Forms;
 using Animals.Domain;                // AnimalCollection, BaseAnimal
 using Animals.Simulation;            // SimulationManager
 using Animals.Simulation.Strategies; // ChaoticMovement, CircularMovement
-
+using Animals.Simulation.Exchange;
 namespace Animals.WinForms
 {
     public partial class MainForm : Form
@@ -13,20 +12,28 @@ namespace Animals.WinForms
         private readonly AnimalCollection _collection = new();
         private readonly SimulationManager _sim = new();
 
+        private TcpExchangeService? _tcpSvc;
         public MainForm()
         {
             InitializeComponent();
-            _sim.Start();                    // фоновая петля симуляции
-        }
 
-        // ========== ЖИЗНЕННЫЙ ЦИКЛ ФОРМЫ ==========
+            classCombo.DataSource = Enum.GetValues(typeof(AnimalClass));
+
+            _sim.Start();                    // фоновая петля симуляции
+            //connect to serv 127 0 0 1
+            _tcpSvc = new TcpExchangeService("127.0.0.1", 5555, _collection);
+
+            // обработчики событий от сервиса
+            _tcpSvc.ClientsChanged += ids => BeginInvoke(() =>
+                                peerCombo.DataSource = ids.Where(i => i != _tcpSvc.ClientId).ToList());
+
+            _tcpSvc.ExchangeCompleted += () => BeginInvoke(UpdateAnimalList);
+        }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             UpdateAnimalList();
         }
-
-        // ========== КНОПКИ / МЕНЮ ==========
 
         private void addAnimalButton_Click(object sender, EventArgs e)
         {
@@ -72,8 +79,6 @@ namespace Animals.WinForms
                 MessageBoxIcon.Information);
         }
 
-        // ========== ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ ==========
-
         private void ShowMovement()
         {
             using var mv = new MovementForm(_sim);
@@ -97,5 +102,21 @@ namespace Animals.WinForms
             foreach (var a in _collection)
                 listBoxAnimals.Items.Add($"{a.Species} ({a.AnimalClass}) – {a.AverageWeight} кг");
         }
+
+        private void exchangeButton_Click(object sender, EventArgs e)
+        {
+            if (_tcpSvc == null) return;
+
+            if (peerCombo.SelectedItem is not int peerId)
+            {
+                MessageBox.Show("Нет выбранного клиента.");
+                return;
+            }
+
+            _tcpSvc.SelectedPeerId = peerId;
+            var cls = (AnimalClass)classCombo.SelectedItem!;
+            _tcpSvc.ExchangeByClass(_collection, null!, cls);
+        }
+
     }
 }

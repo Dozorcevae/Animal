@@ -1,4 +1,6 @@
 ﻿// Animals.WinForms / MainForm.Designer.cs
+using Animals.Domain;
+
 namespace Animals.WinForms
 {
     partial class MainForm
@@ -16,6 +18,9 @@ namespace Animals.WinForms
         private System.Windows.Forms.ToolStripMenuItem deleteMenuItem;
         private System.Windows.Forms.ToolStripMenuItem moveMenuItem;
         private System.Windows.Forms.ToolStripMenuItem infoMenuItem;
+        private System.Windows.Forms.ComboBox peerCombo;
+        private System.Windows.Forms.ComboBox classCombo;
+        private System.Windows.Forms.Button exchangeButton;
 
         protected override void Dispose(bool disposing)
         {
@@ -39,7 +44,8 @@ namespace Animals.WinForms
             moveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             infoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 
-            // ========== LISTBOX ==========
+
+            
             listBoxAnimals.Anchor = System.Windows.Forms.AnchorStyles.Top
                                       | System.Windows.Forms.AnchorStyles.Bottom
                                       | System.Windows.Forms.AnchorStyles.Left
@@ -81,6 +87,30 @@ namespace Animals.WinForms
             moveButton.Text = "Многопоточность";
             moveButton.Click += moveButton_Click;
 
+            // ========== PEER COMBO ==========
+            peerCombo = new System.Windows.Forms.ComboBox();
+            peerCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            peerCombo.Location = new System.Drawing.Point(8, 330);
+            peerCombo.Size = new System.Drawing.Size(230, 23);
+            peerCombo.Name = "peerCombo";
+            peerCombo.TabIndex = 10;          // любая незанятая цифра
+
+            // ---------- CLASS COMBO ----------
+            classCombo = new System.Windows.Forms.ComboBox();
+            classCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            classCombo.Location = new System.Drawing.Point(248, 330);
+            classCombo.Size = new System.Drawing.Size(120, 23);
+            classCombo.Name = "classCombo";
+            classCombo.TabIndex = 11;
+
+            // ---------- EXCHANGE BUTTON ----------
+            exchangeButton = new System.Windows.Forms.Button();
+            exchangeButton.Location = new System.Drawing.Point(380, 328);
+            exchangeButton.Size = new System.Drawing.Size(108, 27);
+            exchangeButton.Name = "exchangeButton";
+            exchangeButton.Text = "Обменяться";
+            exchangeButton.Click += exchangeButton_Click;
+
             // ========== MENU ==========
             addMenuItem.Text = "Добавить";
             addMenuItem.Click += addAnimalButton_Click;
@@ -113,7 +143,8 @@ namespace Animals.WinForms
             Controls.AddRange(new System.Windows.Forms.Control[]
             {
                 menuStrip1, listBoxAnimals, addAnimalButton,
-                deleteAnimalButton, editAnimalButton, moveButton
+                deleteAnimalButton, editAnimalButton, moveButton,
+                peerCombo, classCombo, exchangeButton
             });
             MainMenuStrip = menuStrip1;
             MinimumSize = new System.Drawing.Size(500, 500);
