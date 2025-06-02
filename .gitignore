@@ -1,0 +1,17 @@
+# Visual Studio
+.vs/
+.idea/
+*.user
+*.suo
+*.vcxproj.user
+*.csproj.user
+*.log
+*.vsidx
+
+# Bin/Obj
+bin/
+obj/
+
+# OS
+.DS_Store
+Thumbs.db
