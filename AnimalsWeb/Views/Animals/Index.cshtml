@@ -1,0 +1,25 @@
+﻿@model IEnumerable<AnimalsWeb.Models.Animal>
+
+<h2>Animal List</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Species</th>
+            <th>Class</th>
+            <th>Average Weight</th>
+            <th>Habitat</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var animal in Model)
+        {
+            <tr>
+                <td>@animal.Species</td>
+                <td>@animal.Class</td>
+                <td>@animal.Weight</td>
+                <td>@animal.Species</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,31 @@
+﻿@model AnimalsWeb.Models.Animal
+
+<h2>Add Animal</h2>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label asp-for="Species"></label>
+        <input asp-for="Species" />
+        <span asp-validation-for="Species" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Class"></label>
+        <input asp-for="Class" />
+        <span asp-validation-for="Class" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="AverageWeight"></label>
+        <input asp-for="AverageWeight" />
+        <span asp-validation-for="AverageWeight" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Habitat"></label>
+        <input asp-for="Habitat" />
+        <span asp-validation-for="Habitat" class="text-danger"></span>
+    </div>
+    <button type="submit">Save</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
