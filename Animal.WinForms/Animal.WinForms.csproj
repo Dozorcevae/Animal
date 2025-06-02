@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Animals.Domain\Animals.Domain.csproj" />
+    <ProjectReference Include="..\Animals.Server\Animals.Server.csproj" />
+    <ProjectReference Include="..\Animals.Simulation\Animals.Simulation.csproj" />
+  </ItemGroup>
+
+</Project>
