@@ -1,0 +1,40 @@
+## Общие настройки ##
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Папки сборки ##
+bin/
+obj/
+
+## Папки Visual Studio ##
+.vscode/
+.vs/
+
+## Файлы настроек ASP.NET Core ##
+appsettings.Development.json
+appsettings.Production.json
+appsettings.json
+
+## Secret Manager (если используется) ##
+secrets.json
+
+## Базы данных ##
+*.db
+*.sqlite
+
+## Логи ##
+*.log
+
+## Пакеты ##
+packages/
+*.nupkg
+project.lock.json
+
+## Служебные файлы системы ##
+.DS_Store
+Thumbs.db
+
+## Папки publish ##
+publish/
