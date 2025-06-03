@@ -13,7 +13,8 @@ namespace AnimalsWeb.Controllers
         {
             _context = context;
         }
-
+        // -------------------------------------------------------------------------
+        //CREATE
         public IActionResult Create()
         {
             return View();
@@ -40,7 +41,7 @@ namespace AnimalsWeb.Controllers
             return View(animalViewModel);
         }
         // -------------------------------------------------------------------------
-        // GET: Cars/Edit/5
+        // EDIT
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -57,7 +58,6 @@ namespace AnimalsWeb.Controllers
             return View(car);
         }
 
-        // POST: Cars/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Animal animal)
@@ -92,7 +92,7 @@ namespace AnimalsWeb.Controllers
             return View(animal);
         }
         // -------------------------------------------------------------------------
-
+        //INDEX
         public async Task<IActionResult> Index(string search)
         {
             var animals = _context.Animals.AsQueryable();
@@ -106,11 +106,13 @@ namespace AnimalsWeb.Controllers
             return View(animalList);
         }
         // -------------------------------------------------------------------------
+        //IS EXIST
         private bool AnimalExist(int id)
         {
             return _context.Animals.Any(c => c.Id == id);
         }
         // -------------------------------------------------------------------------
+        //Detales
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -128,6 +130,7 @@ namespace AnimalsWeb.Controllers
             return View(animal);
         }
         // -------------------------------------------------------------------------
+        //DELETE        
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -141,7 +144,24 @@ namespace AnimalsWeb.Controllers
             {
                 return NotFound();
             }
+
             return View(animal);
+        }
+
+        // POST:
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var animal = await _context.Animals.FindAsync(id);
+            if (animal == null)
+            {
+                return NotFound();
+            }
+
+            _context.Animals.Remove(animal);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -4,15 +4,11 @@
     ViewData["Title"] = "Список животных";
 }
 
-<!-- Центрируем заголовок -->
-<h2 class="text-center">Список автомобилей</h2>
+<h2 class="text-center">Список животных</h2>
 
-<!-- Контейнер для кнопки "Добавить новый автомобиль" и формы поиска, расположим их на одной линии -->
 <div class="d-flex justify-content-between mb-3">
-    <!-- Кнопка "Добавить новый автомобиль" слева -->
     <a asp-action="Create" class="btn btn-primary">Добавить новое животное</a>
 
-    <!-- Форма поиска, расположена справа -->
     <form asp-action="Index" method="get" class="form-inline">
         <div class="input-group">
             <input type="text" name="searchQuery" class="form-control" placeholder="Поиск..."
@@ -30,7 +26,7 @@
             <div class="col-md-4 mb-4">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@animals.Class @animals.Class (@animals.Age)</h4>
+                        <h4 class="card-title">@animals.Class</h4>
                     </div>
                     <div class="card-body">
                         <p><strong>Класс:</strong> @animals.Class</p>
