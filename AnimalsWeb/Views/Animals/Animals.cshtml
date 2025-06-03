@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<AnimalsWeb.Models.Animal>
-
 @{
     ViewData["Title"] = "Список животных";
 }
@@ -10,13 +9,13 @@
 <!-- Контейнер для кнопки "Добавить новый автомобиль" и формы поиска, расположим их на одной линии -->
 <div class="d-flex justify-content-between mb-3">
     <!-- Кнопка "Добавить новый автомобиль" слева -->
-    <a asp-action="Create" class="btn btn-primary">Добавить новое животное</a>
+    <a asp-action="Create" class="btn btn-primary">Добавить новый автомобиль</a>
 
     <!-- Форма поиска, расположена справа -->
     <form asp-action="Index" method="get" class="form-inline">
         <div class="input-group">
             <input type="text" name="searchQuery" class="form-control" placeholder="Поиск..."
-                   value="@ViewBag.CurrentFilter"/>
+                   value="@ViewBag.CurrentFilter" />
             <button type="submit" class="btn btn-outline-secondary">Поиск</button>
         </div>
     </form>
@@ -25,23 +24,23 @@
 <div class="row">
     @if (Model != null && Model.Any())
     {
-        @foreach (var animals in Model)
+        @foreach (var animal in Model)
         {
             <div class="col-md-4 mb-4">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@animals.Class @animals.Class (@animals.Age)</h4>
+                        <h4 class="card-title">@animal.Class @animal (@animal.Age)</h4>
                     </div>
                     <div class="card-body">
-                        <p><strong>Класс:</strong> @animals.Class</p>
-                        <p><strong>Вид:</strong> @animals.Species</p>
-                        <p><strong>Возраст:</strong> @animals.Age</p>
-                        <p><strong>Вес:</strong> @animals.Weight</p>
+                        <p><strong>Класс:</strong> @animal.Class</p>
+                        <p><strong>Вид:</strong> @animal.Species</p>
+                        <p><strong>Возраст:</strong> @animal.Age</p>
+                        <p><strong>Вес:</strong> @animal.Weight</p>
                     </div>
                     <div class="card-footer">
-                        <a asp-action="Details" asp-route-id="@animals.Id" class="btn btn-info btn-sm">Просмотр</a>
-                        <a asp-action="Edit" asp-route-id="@animals.Id" class="btn btn-warning btn-sm">Редактировать</a>
-                        <a asp-action="Delete" asp-route-id="@animals.Id" class="btn btn-danger btn-sm">Удалить</a>
+                        <a asp-action="Details" asp-route-id="@animal.Id" class="btn btn-info btn-sm">Просмотр</a>
+                        <a asp-action="Edit" asp-route-id="@animal.Id" class="btn btn-warning btn-sm">Редактировать</a>
+                        <a asp-action="Delete" asp-route-id="@animal.Id" class="btn btn-danger btn-sm">Удалить</a>
                     </div>
                 </div>
             </div>

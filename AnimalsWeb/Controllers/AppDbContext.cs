@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using AnimalsWeb.Models;
 
-namespace AnimalsWeb.Data
+namespace AnimalsWeb.Controllers
 {
     public class ApplicationDbContext : DbContext
     {

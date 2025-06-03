@@ -1,0 +1,38 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Главная страница";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .btn-primary {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Web сервис по учету всратых животных</h1>
+        <a href="@Url.Action("Index", "Animals")" class="btn btn-primary btn-lg">Start</a>
+    </div>
+</body>
+</html>

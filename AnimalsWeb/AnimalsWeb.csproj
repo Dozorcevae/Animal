@@ -16,4 +16,8 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Trigrams" Version="5.0.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
 </Project>

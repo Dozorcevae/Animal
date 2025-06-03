@@ -1,5 +1,4 @@
-using AnimalsWeb.Data;
-using AnimalsWeb.Data;
+using AnimalsWeb.Controllers;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,25 +6,23 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error");
+    app.UseExceptionHandler("/Home/Error");
 }
 
-//app.UseHttpsRedirection();
-app.UseStaticFiles();
-
+app.UseHttpsRedirection();
 app.UseRouting();
-
 app.UseAuthorization();
+
+app.UseStaticFiles();
 
 app.MapControllerRoute(
     name: "default",

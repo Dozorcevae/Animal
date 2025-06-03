@@ -3,23 +3,32 @@
 @{
     ViewData["Title"] = "Детали животного";
 }
+<h2>Информация о животном</h2>
 
-<h2>Детали животного</h2>
-
-<div>
-    <dl class="row">
-        <dt class="col-sm-2">Класс</dt>
-        <dd class="col-sm-10">@Model.Class</dd>
-
-        <dt class="col-sm-2">Возраст</dt>
-        <dd class="col-sm-10">@Model.Age</dd>
-
-        <dt class="col-sm-2">Вид</dt>
-        <dd class="col-sm-10">@Model.Species</dd>
-
-        <dt class="col-sm-2">Вес</dt>
-        <dd class="col-sm-10">@Model.Weight</dd>
-    </dl>
-</div>
-
-<a asp-action="Index" class="btn btn-secondary">Назад к списку</a>
+<div class="card mb-4">
+    <div class="card-header">
+        <h4>@Model.Class @Model.Class (@Model.Age)</h4>
+    </div>
+    <div class="card-body">
+        <div class="row mb-3">
+            <div class="col-md-3 fw-bold">Класс животного:</div>
+            <div class="col-md-9">@Model.Class</div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-3 fw-bold">Вид:</div>
+            <div class="col-md-9">@Model.Species</div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-3 fw-bold">Возраст:</div>
+            <div class="col-md-9">@Model.Age</div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-3 fw-bold">Вес:</div>
+            <div class="col-md-9">@Model.Weight</div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Редактировать</a>
+        <a asp-action="Index" class="btn btn-secondary">Назад к списку</a>
+    </div>
+</div>ion="Index" class="btn btn-secondary">Назад к списку</a>
