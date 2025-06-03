@@ -6,8 +6,8 @@
 
 <h2 class="text-center">Список животных</h2>
 
-<div class="d-flex justify-content-between mb-3">
-    <a asp-action="Create" class="btn btn-primary">Добавить новое животное</a>
+<div class="d-flex justify-content-between mb-3 mt-4">
+    <a class="btn btn-pink" asp-action="Create">🐶 Добавить животное 🐶</a>
 
     <form asp-action="Index" method="get" class="form-inline">
         <div class="input-group">
@@ -26,18 +26,18 @@
             <div class="col-md-4 mb-4">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@animals.Class</h4>
+                        <h4 class="card-title">@animals.Species</h4>
                     </div>
                     <div class="card-body">
                         <p><strong>Класс:</strong> @animals.Class</p>
                         <p><strong>Вид:</strong> @animals.Species</p>
-                        <p><strong>Возраст:</strong> @animals.Age</p>
-                        <p><strong>Вес:</strong> @animals.Weight</p>
+                        <p><strong>Возраст:</strong> @animals.Age<small> лет</small></p>
+                        <p><strong>Вес:</strong> @animals.Weight<small> кг</small></p>
                     </div>
                     <div class="card-footer">
-                        <a asp-action="Details" asp-route-id="@animals.Id" class="btn btn-info btn-sm">Просмотр</a>
-                        <a asp-action="Edit" asp-route-id="@animals.Id" class="btn btn-warning btn-sm">Редактировать</a>
-                        <a asp-action="Delete" asp-route-id="@animals.Id" class="btn btn-danger btn-sm">Удалить</a>
+                        <a asp-action="Details" asp-route-id="@animals.Id" class="btn btn-view">Просмотр</a>
+                        <a asp-action="Edit" asp-route-id="@animals.Id" class="btn btn-edit">Редактировать</a>
+                        <a asp-action="Delete" asp-route-id="@animals.Id" class="btn btn-danger2">Удалить</a>
                     </div>
                 </div>
             </div>
@@ -45,8 +45,9 @@
     }
     else
     {
-        <div class="col-12">
-            <p>Нет доступных животных.</p>
+        <div class="col-12 text-center mt-4">
+            <p class="fs-4 text-muted">🌸 Нет доступных животных 🌸</p>
         </div>
+
     }
 </div>

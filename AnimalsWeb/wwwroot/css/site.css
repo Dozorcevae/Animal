@@ -18,5 +18,77 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    background-image: url('/images/background.png');
+    background-position: center;
+    background-repeat: no-repeat;
 }
+
+.btn-pink {
+    background-color: #a95182;
+    color: white;
+    border: none;
+}
+
+    .btn-pink:hover {
+        background-color: #b2357b;
+    }
+
+.btn-blue {
+    background-color: #5ea4ee;
+    color: white;
+    border: none;
+}
+
+    .btn-blue:hover {
+        background-color: #3f7e9a;
+    }
+
+.btn-danger2 {
+    background-color: #fe7272;
+    color: white;
+    border: none;
+}
+
+    .btn-danger2:hover {
+        background-color: #f72e2e;
+    }
+
+.btn-view {
+    background-color: #777ddd;
+    color: white;
+    border: none;
+}
+
+    .btn-view:hover {
+        background-color: #4951db;
+    }
+
+.btn-edit {
+    background-color: #ded02a;
+    color: white;
+    border: none;
+}
+
+    .btn-edit:hover {
+        background-color: #ffee24;
+    }
+
+.btn-gray {
+    background-color: #a5a5a5;
+    color: white;
+    border: none;
+}
+
+    .btn-gray:hover {
+        background-color: #787878;
+    }
+
+.btn-green {
+    background-color: #0fcc1f;
+    color: white;
+    border: none;
+}
+
+    .btn-green:hover {
+        background-color: #05a012;
+    }
