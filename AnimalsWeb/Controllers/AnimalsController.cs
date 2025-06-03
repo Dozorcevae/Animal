@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using AnimalslWeb.Data;
+﻿using AnimalsWeb.Data;
 using AnimalsWeb.Models;
-using AnimalsWeb.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace AnimalsWeb.Controllers
@@ -15,30 +15,65 @@ namespace AnimalsWeb.Controllers
             _context = context;
         }
 
-        // get some animals if u know what i mean
         public IActionResult Create()
         {
             return View();
         }
 
-        // post some animals... well, u know
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Animal animal)
+        public async Task<IActionResult> Create(Animal animalViewModel)
         {
             if (ModelState.IsValid)
             {
+                var animal = new Animal
+                {
+                    Class = animalViewModel.Class,
+                    Age = animalViewModel.Age,
+                    Species = animalViewModel.Species,
+                    Weight = animalViewModel.Weight
+                };
+
                 _context.Animals.Add(animal);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(animal);
+            return View(animalViewModel);
         }
-
-        // get animals
-        public IActionResult Index()
+        // -------------------------------------------------------------------------
+        public async Task<IActionResult> Index(string search)
         {
-            return View(_context.Animals.ToList());
+            var animals = _context.Animals.AsQueryable();
+            if (!string.IsNullOrEmpty(search))
+            {
+                animals = animals.Where(c => c.Class.Contains(search) || c.Species.Contains(search));
+            }
+
+            var animalList = await animals.ToListAsync();
+
+            return View(animalList);
+        }
+        // -------------------------------------------------------------------------
+        private bool AnimalExist(int id)
+        {
+            return _context.Animals.Any(c => c.Id == id);
+        }
+        // -------------------------------------------------------------------------
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var car = await _context.Animals
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (car == null)
+            {
+                return NotFound();
+            }
+
+            return View(car);
         }
     }
 }

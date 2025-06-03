@@ -1,0 +1,55 @@
+﻿@model IEnumerable<AnimalsWeb.Models.Animal> // для работы со списком объектов Animals
+
+@{
+    ViewData["Title"] = "Список автомобилей";
+}
+
+
+<h2>Список животных</h2>
+
+<div class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">Добавить новое животное</a>
+</div>
+
+<div class="mb-3">
+    <form asp-action="Index" method="get" class="form-inline">
+        <div class="input-group">
+            <input type="text" name="searchQuery" class="form-control" placeholder="Поиск по марке или модели..." value="@ViewBag.CurrentFilter" />
+            <button type="submit" class="btn btn-outline-secondary">Поиск</button>
+        </div>
+    </form>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Класс</th>
+            <th>Возраст</th>
+            <th>Вид</th>
+            <th>Вес</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var animal in Model)
+        {
+                <tr>
+                    <td>@animal.Class</td>
+                    <td>@animal.Age</td>
+                    <td>@animal.Species</td>
+                    <td>@animal.Weight</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@animal.Id" class="btn btn-info btn-sm">Просмотр</a>
+                        <a asp-action="Edit" asp-route-id="@animal.Id" class="btn btn-warning btn-sm">Редактировать</a>
+                        <a asp-action="Delete" asp-route-id="@animal.Id" class="btn btn-danger btn-sm">Удалить</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="6">Нет доступных животных. Внесите информацию.</td></tr>
+        }
+    </tbody>
+</table>

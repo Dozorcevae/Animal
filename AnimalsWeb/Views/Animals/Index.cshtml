@@ -1,25 +1,43 @@
 ﻿@model IEnumerable<AnimalsWeb.Models.Animal>
 
-<h2>Animal List</h2>
+@{
+    ViewData["Title"] = "Список животных";
+}
+@{
+    Layout = null;
+    ViewData["Title"] = "Главная страница";
+}
 
-<table>
-    <thead>
-        <tr>
-            <th>Species</th>
-            <th>Class</th>
-            <th>Average Weight</th>
-            <th>Habitat</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var animal in Model)
-        {
-            <tr>
-                <td>@animal.Species</td>
-                <td>@animal.Class</td>
-                <td>@animal.Weight</td>
-                <td>@animal.Species</td>
-            </tr>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
         }
-    </tbody>
-</table>
+
+        .container {
+            text-align: center;
+        }
+
+        .btn-primary {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Web сервис по учету животных в этом ебучем цирке</h1>
+        <a href="@Url.Action("Create", "Animals")" class="btn btn-primary btn-lg">Start</a>
+    </div>
+</body>
+</html>

@@ -21,3 +21,4 @@ namespace AnimalsWeb.Models
         public double Weight {  get; set; }
     }
 }
+
