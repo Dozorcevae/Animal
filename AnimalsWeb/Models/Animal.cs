@@ -11,7 +11,7 @@ namespace AnimalsWeb.Models
         public string Class { get; set; }
 
         [Range(0.5, 100)]
-        public int Age { get; set; }
+        public double Age { get; set; }
 
         [Required]
         [StringLength(50)]
